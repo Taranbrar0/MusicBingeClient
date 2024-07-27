@@ -1,18 +1,29 @@
-import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./Components/Home.jsx";
 import Signin from "./Components/Signin.jsx";
 import LogIn from "./Components/LogIn.jsx";
+import { useState } from "react";
+
 function App() {
-  return ( 
-  <div>
+  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
 
-    <Routes>
-      <Route path="/" element={<Signin />} />
-      <Route path="/Home" element={<Home/>} />
-      <Route path="/Login" element={<LogIn />} />
+  const handleLogin = () => {
+    setIsAuthenticated(true);
+  };
+
+  return (
+    <div>
+      <Routes>
+        <Route path="/signUp" element={<Signin />} />
+        <Route 
+          path="/" 
+          element={isAuthenticated ? <Home /> : <Navigate to="/login" />} 
+        />
+        <Route 
+          path="/login" 
+          element={isAuthenticated ? <Navigate to="/" /> : <LogIn onLogin={handleLogin} />} 
+        />
       </Routes>
-
     </div>
   );
 }

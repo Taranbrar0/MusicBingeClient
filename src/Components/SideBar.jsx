@@ -1,9 +1,16 @@
 import { CiMenuBurger } from "react-icons/ci";
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function SideBar(){
     const [ShowSideBar,toggleSideBar]=useState(true);
+    const navigate = useNavigate();
+    const Logout= ()=>{
+        localStorage.clear();
+        navigate('/login');
+        window.location.reload();
+    }
 
     return  <div className="sticky top-0 h-lvh">
         <CiMenuBurger  onClick={()=>toggleSideBar(!ShowSideBar)} className="text-white m-2"/>
@@ -26,7 +33,7 @@ function SideBar(){
 
             <div className="text-lg font-bold text-white mt-28 ml-3">
                 <h1>Setting</h1>
-                <h1>Logout</h1>
+                <h1 onClick={Logout}>Logout</h1>
             </div>
         </div>
     </div>;
