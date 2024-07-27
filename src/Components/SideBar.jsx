@@ -3,8 +3,9 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function SideBar(){
+function SideBar( { isMain, setMain } ){
     const [ShowSideBar,toggleSideBar]=useState(true);
+
     const navigate = useNavigate();
     const Logout= ()=>{
         localStorage.clear();
@@ -13,25 +14,25 @@ function SideBar(){
     }
 
     return  <div className="sticky top-0 h-lvh">
-        <CiMenuBurger  onClick={()=>toggleSideBar(!ShowSideBar)} className="text-white m-2"/>
+        <CiMenuBurger  onClick={()=>toggleSideBar(!ShowSideBar)} className="text-white m-2 cursor-pointer"/>
         <div  className={ShowSideBar?"bg-black w-36":"hidden"}>
-            <div className="mb-50px text-lg text-white ml-3">
-                <h1 className="text-xl font-bold underline mt-28">Main</h1>
+            <div className="mb-50px text-lg text-white ml-3 cursor-pointer">
+                <h1 className={isMain? "text-xl font-bold underline mt-28": "text-xl font-bold mt-28"} onClick={()=>setMain(true)}>Main</h1>
                 <h1>Artist</h1>
                 <h1>New Realses</h1>
                 <h1>Audio Books</h1>
             </div>
 
 
-            <div className="mt-28 text-white text-lg ml-3">
-                <h1 className="text-xl font-bold ">My music</h1>
+            <div className="mt-28 text-white text-lg ml-3 cursor-pointer">
+                <h1 className={isMain? "text-xl font-bold ":"text-xl font-bold underline"} onClick={()=>setMain(false)}>My music</h1>
                 <h1>Tracks</h1>
                 <h1>Albums</h1>
                 <h1>Playlists</h1>
                 <h1>Files</h1>
             </div>
 
-            <div className="text-lg font-bold text-white mt-28 ml-3">
+            <div className="text-lg font-bold text-white mt-28 ml-3 cursor-pointer">
                 <h1>Setting</h1>
                 <h1 onClick={Logout}>Logout</h1>
             </div>

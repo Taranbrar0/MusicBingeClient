@@ -3,6 +3,7 @@ import Home from "./Components/Home.jsx";
 import Signin from "./Components/Signin.jsx";
 import LogIn from "./Components/LogIn.jsx";
 import { useState } from "react";
+import MyMusic from "./Components/MyMusic/MyMusic.jsx";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
@@ -23,6 +24,7 @@ function App() {
           path="/login" 
           element={isAuthenticated ? <Navigate to="/" /> : <LogIn onLogin={handleLogin} />} 
         />
+        <Route path="/mymusic" element={<MyMusic />} />
       </Routes>
     </div>
   );

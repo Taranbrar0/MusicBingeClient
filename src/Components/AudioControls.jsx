@@ -15,7 +15,7 @@ import { useSong } from '../Context/SongContext'; // Import the custom hook
 
 const songs = [song1, song2, song3, song4, song5, song6, song7, song8, song9];
 
-function AudioControl({ title }) {
+function AudioControl() {
     const { currentSongIndex, setCurrentSongIndex } = useSong();
     const [audio, setAudio] = useState(new Audio(songs[currentSongIndex]));
     const [isPlaying, setIsPlaying] = useState(false);
@@ -23,6 +23,7 @@ function AudioControl({ title }) {
     const [duration, setDuration] = useState(0);
     const [volume, setVolume] = useState(1); // Volume between 0 and 1
     const [progress, setProgress] = useState(0);
+    const [title,setTitle]=useState("");
 
     useEffect(() => {
         audio.addEventListener('timeupdate', handleTimeUpdate);
@@ -44,11 +45,12 @@ function AudioControl({ title }) {
         if (isPlaying) {
             newAudio.play();
         }
-
+        axios.get("http://localhost:3500/api/songs/"+currentSongIndex).then((response)=>{
+            setTitle(response.data[0].SongTitle);
+        });
         return () => {
             newAudio.pause();
         };
-        axios.get("")
     }, [currentSongIndex]);
 
     const handlePlayPause = () => {
@@ -92,8 +94,8 @@ function AudioControl({ title }) {
     };
 
     return (
-        <div className="bg-black h-28 sticky bottom-0 w-full opacity-90">
-            <div className="bg-black h-28 opacity-100" style={{ width: "100%" }}>
+        <div className="bg-black h-28 sticky bottom-0 w-full opacity-85">
+            <div className=" h-28 opacity-100" style={{ width: "100%" }}>
                 <div className="flex flex-col items-center relative">
                     <div>
                         <button className='text-white py-2 focus:outline-none' onClick={handlePreviousSong}><CgPlayTrackPrev /></button>
