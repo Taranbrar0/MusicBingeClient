@@ -16,7 +16,7 @@ import { useSong } from '../Context/SongContext'; // Import the custom hook
 const songs = [song1, song2, song3, song4, song5, song6, song7, song8, song9];
 
 function AudioControl() {
-    const { currentSongIndex, setCurrentSongIndex } = useSong();
+    const { currentSongIndex, setCurrentSongIndex } = useSong(1);
     const [audio, setAudio] = useState(new Audio(songs[currentSongIndex]));
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
@@ -24,6 +24,7 @@ function AudioControl() {
     const [volume, setVolume] = useState(1); // Volume between 0 and 1
     const [progress, setProgress] = useState(0);
     const [title,setTitle]=useState("");
+    const [hasInteracted,setHasInteracted] = useState(false);
 
     useEffect(() => {
         audio.addEventListener('timeupdate', handleTimeUpdate);
@@ -35,6 +36,7 @@ function AudioControl() {
         };
     }, [audio]);
 
+
     useEffect(() => {
         const newAudio = new Audio(songs[currentSongIndex]);
         newAudio.volume = volume;
@@ -42,9 +44,15 @@ function AudioControl() {
         setCurrentTime(0);
         setProgress(0);
         setDuration(newAudio.duration);
-        if (isPlaying) {
+        if(hasInteracted)
+        {
             newAudio.play();
+            setIsPlaying(true);
+        }else{
+            setHasInteracted(true);
         }
+        
+         //gets titile of song playing from server using get request
         axios.get("http://localhost:3500/api/songs/"+currentSongIndex).then((response)=>{
             setTitle(response.data[0].SongTitle);
         });
@@ -65,6 +73,9 @@ function AudioControl() {
     const handleTimeUpdate = () => {
         setCurrentTime(audio.currentTime);
         setProgress((audio.currentTime / audio.duration) * 100);
+        if(audio.currentTime===audio.duration){
+            handleNextSong();
+        }
     };
 
     const handleVolumeChange = (event) => {
@@ -94,7 +105,7 @@ function AudioControl() {
     };
 
     return (
-        <div className="bg-black h-28 sticky bottom-0 w-full opacity-85">
+        <div className="bg-black h-28 sticky bottom-0 w-full opacity-85 ">
             <div className=" h-28 opacity-100" style={{ width: "100%" }}>
                 <div className="flex flex-col items-center relative">
                     <div>
@@ -107,24 +118,25 @@ function AudioControl() {
                         </button>
                         <button className='text-white py-2 focus:outline-none' onClick={handleNextSong}><CgPlayTrackNext /></button>
                     </div>
+                    
+                    {/* container for progress bar */}
                     <div
                         className="relative w-2/3 h-1 bg-white rounded-full cursor-pointer"
                         onClick={handleClick}
                         style={{ background: `linear-gradient(to right, #808080 ${progress}%, #ffffff ${progress}%)` }}
                     >
+                        {/* represents the progress */}
                         <div
                             className="absolute top-0 left-0 h-full bg-neutral-600 rounded-full"
                             style={{ width: `${progress}%` }}
-                        />
-                        
-                            {Math.floor(currentTime / 60)}:{Math.floor(currentTime % 60).toString().padStart(2, '0')}
-                        
+                        />                        
                     </div>
                     
                     <div className="flex justify-between text-sm mt-2 w-3/4 text-white">
                         <span>{Math.floor(currentTime / 60)}:{Math.floor(currentTime % 60).toString().padStart(2, '0')}</span>
                         <span>{Math.floor(duration / 60)}:{Math.floor(duration % 60).toString().padStart(2, '0')}</span>
                     </div>
+
                     <div className="flex flex-row items-center text-white absolute right-5 top-16">
                         <span className="text-white mx-2">Volume</span>
                         <input

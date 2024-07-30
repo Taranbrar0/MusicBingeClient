@@ -14,6 +14,7 @@ function App() {
 
   return (
     <div>
+      {/* routes for managing pages checks if user is authenticated then only allowed to go to home page*/}
       <Routes>
         <Route path="/signUp" element={<Signin />} />
         <Route 

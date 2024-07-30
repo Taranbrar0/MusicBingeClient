@@ -4,6 +4,7 @@ import React, { createContext, useState, useContext } from 'react';
 // Create Context
 const SongContext = createContext();
 
+
 // Create a Provider component
 export const SongProvider = ({ children }) => {
     const [currentSongIndex, setCurrentSongIndex] = useState(0);

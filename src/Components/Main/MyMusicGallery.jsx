@@ -1,10 +1,10 @@
+import SongContainer from "../MyMusic/SongContainer";
+import { useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
-import SideBar from "../SideBar";
-import NowPlaying from "../RightBar/NowPlaying";
-import { useState, useEffect } from "react";
-import SongContainer from "./SongContainer";
 
-function MyMusic() {
+function MyMusicGallery(){
+
     const [songDetails, setSongDetails] = useState([]);
     const [likedSongs, setLikedSongs] = useState([]);
 
@@ -13,7 +13,7 @@ function MyMusic() {
         if (response) {
             setLikedSongs(JSON.parse(response));
         }
-    });
+    }, []);
 
     useEffect(() => {
         if (likedSongs.length > 0) {
@@ -47,21 +47,17 @@ function MyMusic() {
         }
     }, [likedSongs]);
 
-    return (      
-        <div className="flex row bg-black">
-            {/* <SideBar /> */}
-            <div className="w-2/3 bg-zinc-800 text-white p-5">
+    return(
+        <div className=" bg-zinc-800 grid grid-cols-3 gap-4">
                 {songDetails.length > 0 ? (
                     songDetails.map(song => (
-                        <SongContainer key={song.id} song={song}  className="grid col-span-3 "/>
+                        <SongContainer key={song.id} song={song}  className=" "/>
                     ))
                 ) : (
                     <h1>No Liked Songs</h1>
                 )}
-            </div>
-            <NowPlaying />
-        </div>
+                </div> 
     );
 }
 
-export default MyMusic;
+export default MyMusicGallery;

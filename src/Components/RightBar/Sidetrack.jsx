@@ -1,7 +1,7 @@
 import { FaPlay, FaHeart } from "react-icons/fa";
 import { CiHeart } from "react-icons/ci";
 import { useState, useEffect } from "react";
-import { useSong } from '../../Context/SongContext'; // Import the custom hook
+import { useSong } from '../../Context/SongContext'; // Context to keep record of songs playing currently
 
 function Sidetrack({ song }) {
     const { id, SongTitle, Artist, photo, duration, liked } = song;
@@ -43,7 +43,7 @@ function Sidetrack({ song }) {
                     alt={SongTitle}
                     className="absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-300 linear group-hover:opacity-0"
                 />
-                <FaPlay className="absolute inset-0 w-full h-full text-white opacity-0 transition-opacity duration-300 linear group-hover:opacity-100 mt-1" />
+                <FaPlay className="absolute inset-0 w-full h-full text-white opacity-0 transition-opacity duration-300 linear  mt-1 group-hover:opacity-100" />
             </div>
             <div>
                 <h1>{SongTitle}</h1>
