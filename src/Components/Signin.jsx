@@ -7,7 +7,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function Signin(){
     let [isPassword,togglePassword] = useState(0);
-
     const navigate = useNavigate();
 
     const [name, setName] = useState('');

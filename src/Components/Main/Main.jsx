@@ -32,7 +32,7 @@ const Normal = ({loading, setLoading, setCurrentSongIndex}) =>(
                 <h1 className="absolute right-5 text-base font-normal">View all</h1>
             </div>
             <div>
-                <PlaylistGallery />
+                <PlaylistGallery setLoading={setLoading} />
                 <Songs loading={loading}  setLoading={setLoading}/>
             </div>
         </div>

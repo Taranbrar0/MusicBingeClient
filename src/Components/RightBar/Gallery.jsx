@@ -9,7 +9,7 @@ function Gallery(props) {
 
   useEffect(() => {
     
-    setLoading(true);
+    // setLoading(true);
     axios.get('http://localhost:3500/api/songs')
       .then(response => {
         setSongs(response.data); // response.data is an array of songs
@@ -18,10 +18,10 @@ function Gallery(props) {
         console.error('Error fetching songs:', error);
       })
       .finally(()=>{
-        setTimeout(()=>{
-           setLoading(false)
-          console.log("After 1.5 seconds");
-        },1000);
+        // setTimeout(()=>{
+        //    setLoading(false)
+        //   console.log("After 1.5 seconds");
+        // },1000);
       });
   }, []);
 
