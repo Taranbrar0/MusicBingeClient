@@ -48,7 +48,7 @@ function MyMusicGallery(){
     }, [likedSongs]);
 
     return(
-        <div className=" bg-zinc-800 grid grid-cols-3 gap-4">
+        <div className=" bg-zinc-800 grid grid-cols-3 gap-4 h-screen">
                 {songDetails.length > 0 ? (
                     songDetails.map(song => (
                         <SongContainer key={song.id} song={song}  className=" "/>

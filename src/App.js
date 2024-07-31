@@ -3,7 +3,9 @@ import Home from "./Components/Home.jsx";
 import Signin from "./Components/Signin.jsx";
 import LogIn from "./Components/LogIn.jsx";
 import { useState } from "react";
-import MyMusic from "./Components/MyMusic/MyMusic.jsx";
+import UserProfile from "./Components/UserProfile.jsx";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
@@ -15,6 +17,7 @@ function App() {
   return (
     <div>
       {/* routes for managing pages checks if user is authenticated then only allowed to go to home page*/}
+      <ToastContainer />
       <Routes>
         <Route path="/signUp" element={<Signin />} />
         <Route 
@@ -23,9 +26,12 @@ function App() {
         />
         <Route 
           path="/login" 
-          element={isAuthenticated ? <Navigate to="/" /> : <LogIn onLogin={handleLogin} />} 
+          element={isAuthenticated ? <Navigate to="/" /> : <LogIn />} 
         />
-        <Route path="/mymusic" element={<MyMusic />} />
+        <Route
+          path="/userProfile" 
+          element ={ isAuthenticated ? <UserProfile /> : <Navigate to="/"  />} 
+        />
       </Routes>
     </div>
   );

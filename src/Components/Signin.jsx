@@ -2,8 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { Link,useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Signin(){
     let [isPassword,togglePassword] = useState(0);
@@ -28,10 +28,15 @@ function Signin(){
         }).then(function(response){
             const data = response.data;
             if(data.success){
+                toast.success("Signing in for "+name);
                 localStorage.setItem("token",data.token);
                 localStorage.setItem("user",data.user);
-                navigate('/');
-                window.location.reload();
+                setTimeout(()=>{
+                    navigate('/');
+                    window.location.reload();
+                },3000);
+                
+                
             }
             else{
                 alert(response.data.message);
@@ -68,26 +73,26 @@ function Signin(){
                         value={dob} onChange={(e)=>setDob(e.target.value)}/>
                         <h1>Gender</h1>
                         <h1 className="text-sm text-neutral-400">We use gender to personalize our songs</h1>
-                        <div className="flex space-x-3" onChange={((e) =>{setGender(e.target.value)})} value={gender}>
-                            <input type="radio" name="gender" id="male" />
+                        <div className="flex space-x-3">
+                            <input type="radio" name="gender" id="male" onClick={()=>setGender('Male')}/>
                             <label htmlFor="male">Male</label>
-                            <input type="radio" name="gender" id="female" />
+                            <input type="radio" name="gender" id="female" onClick={()=>setGender('Female')}/>
                             <label htmlFor="female">Female</label>
-                            <input type="radio" name="gender" id="no" />
+                            <input type="radio" name="gender" id="no" onClick={()=>setGender('Not Provided')} />
                             <label htmlFor="no">Prefer not to say</label>
                         </div>
                     </div>
 
-                    <div className={isPassword>1?"hidden":"bg-green-600 p-3 px-32 rounded-xl m-3 ml-12"} onClick={(event)=>{togglePassword(isPassword++);
+                    <div className={isPassword>1?"hidden":"w-32 bg-green-600 p-3 rounded-xl m-3 pl-12 ml-32 cursor-pointer"} onClick={(event)=>{togglePassword(isPassword++);
                         event.preventDefault();
                     }}>Next</div>
                     <hr className="my-4"/>
-                    <input type="submit" value="submit" className={isPassword===2?"bg-green-600 p-3 px-32 rounded-xl m-3 ml-12":"hidden"} />                    
+                    <input type="submit" value="submit" className={isPassword===2?"bg-green-600 p-3 px-32 rounded-xl m-3 ml-12 cursor-pointer":"hidden"} />                    
                     </form>
                 <h1 className="text-base mx-2 inline-flex">If you already have an account !!!</h1>
                 <h1 className="underline inline-flex"> <Link to="/login">Login</Link></h1>
             </div>
-
+            <ToastContainer />
         </div>
     )
 };
