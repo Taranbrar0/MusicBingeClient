@@ -9,7 +9,7 @@ function LogIn() {
     const [password, setPassword] = useState("");
 
     const validate = () => {
-        axios.post("http://localhost:3500/api/login", {
+        axios.post("https://musicbingeserver.onrender.com/api/login", {
             name,
             password
         })

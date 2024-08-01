@@ -11,7 +11,7 @@ function UserProfile(){
     const [gender,setGender] = useState('');
 
     useEffect(()=>{
-        const ApiPath = "http://localhost:3500/api/user/"+localStorage.getItem('user');
+        const ApiPath = "https://musicbingeserver.onrender.com/api/user/"+localStorage.getItem('user');
         try{
         axios.get(ApiPath).then(res =>{
             const data = res.data[0];
@@ -27,7 +27,7 @@ function UserProfile(){
     });
 
    const deleteUser = ()=>{
-        axios.delete("http://localhost:3500/api/user/"+localStorage.getItem('user')).then((res)=>{
+        axios.delete("https://musicbingeserver.onrender.com/api/user/"+localStorage.getItem('user')).then((res)=>{
             toast.success(res.data);
         });
         setTimeout(()=>{

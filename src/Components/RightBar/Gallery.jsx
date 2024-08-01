@@ -2,27 +2,18 @@ import React, { useEffect, useState } from "react";
 import Sidetrack from "./Sidetrack";
 import axios from "axios";
 
-function Gallery(props) {
-    const {loading, setLoading } = props;
+function Gallery() {
   const [songs, setSongs] = useState([]);
 
 
   useEffect(() => {
-    
-    // setLoading(true);
-    axios.get('http://localhost:3500/api/songs')
+    axios.get('https://musicbingeserver.onrender.com/api/songs')
       .then(response => {
         setSongs(response.data); // response.data is an array of songs
       })
       .catch( (error) => {
         console.error('Error fetching songs:', error);
       })
-      .finally(()=>{
-        // setTimeout(()=>{
-        //    setLoading(false)
-        //   console.log("After 1.5 seconds");
-        // },1000);
-      });
   }, []);
 
   return (

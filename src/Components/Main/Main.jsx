@@ -8,7 +8,7 @@ import MyMusicGallery from "./MyMusicGallery";
 import { useSong } from '../../Context/SongContext';
 
 
-const Normal = ({loading, setLoading, setCurrentSongIndex}) =>(
+const Normal = ({setLoading, setCurrentSongIndex}) =>(
 
     <div>  
  
@@ -33,7 +33,7 @@ const Normal = ({loading, setLoading, setCurrentSongIndex}) =>(
             </div>
             <div>
                 <PlaylistGallery setLoading={setLoading} />
-                <Songs loading={loading}  setLoading={setLoading}/>
+                <Songs />
             </div>
         </div>
     </div>

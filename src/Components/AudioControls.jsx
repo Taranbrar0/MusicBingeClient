@@ -53,7 +53,7 @@ function AudioControl() {
         }
         
          //gets titile of song playing from server using get request
-        axios.get("http://localhost:3500/api/songs/"+currentSongIndex).then((response)=>{
+        axios.get("https://musicbingeserver.onrender.com/api/songs/"+currentSongIndex).then((response)=>{
             setTitle(response.data[0].SongTitle);
         });
         return () => {

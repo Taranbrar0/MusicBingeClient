@@ -21,7 +21,7 @@ function MyMusicGallery(){
             let completedReq = 0;
 
             likedSongs.forEach(songId => {
-                axios.get(`http://localhost:3500/api/songs/${songId}`)
+                axios.get(`https://musicbingeserver.onrender.com/api/songs/${songId}`)
                     .then(res => {
                         songData.push(res.data[0]);
                         completedReq++;

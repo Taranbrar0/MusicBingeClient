@@ -4,19 +4,14 @@ import { useState, useEffect } from "react";
 
 function PlaylistGallery({ setLoading }) {
     const [playlist, setPlaylist] = useState([]);
-
+    
     useEffect(() => {
         // Set loading state to true when the component mounts
-        setLoading(true);
-
         // Fetch data from the API
-        axios.get('http://localhost:3500/api/albums')
+        axios.get('https://musicbingeserver.onrender.com/api/albums')
             .then(res => {
                 setPlaylist(res.data);
                 // Simulate a delay and then set loading to false
-                setTimeout(() => {
-                    setLoading(false);
-                }, 2000);
             })
             .catch(err => {
                 console.error("Failed to fetch data:", err);
@@ -24,8 +19,11 @@ function PlaylistGallery({ setLoading }) {
                 setLoading(false);
             });
 
-    }, [setLoading]);
+    },[]);
 
+    setTimeout(() => {
+        setLoading(false);
+    }, 1000);
     return (
         <div className="flex mt-12">
             {playlist.map(album => (

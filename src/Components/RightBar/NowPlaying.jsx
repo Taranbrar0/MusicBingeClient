@@ -2,7 +2,7 @@ import Gallery from "./Gallery.jsx";
 import { FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-function NowPlaying({loading , setLoading}){
+function NowPlaying(){
     return <div className="text-white bg-black w-1/4 sticky top-0 h-lvh overflow-auto">
         <div className=" p-2 relative mb-8 ">
         <Link to="/userProfile">
@@ -17,7 +17,7 @@ function NowPlaying({loading , setLoading}){
             <h1 className="font-bold absolute left-3">Now playing</h1>
             <h1 className="absolute right-3">View all</h1>
         </div>
-        <Gallery loading={loading}  setLoading={setLoading} />
+        <Gallery  />
     </div>;
 
 }

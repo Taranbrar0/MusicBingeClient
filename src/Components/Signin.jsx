@@ -18,7 +18,7 @@ function Signin(){
 
     const addUser =(e)=>{
         e.preventDefault();
-        axios.post("http://localhost:3500/api/signup",{
+        axios.post("https://musicbingeserver.onrender.com/api/signup",{
             "name":name,
             "password":password,
             "email":email,
