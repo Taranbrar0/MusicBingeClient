@@ -3,10 +3,11 @@ import React from "react";
 import { useState } from "react";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
 
 function SideBar( { isMain, setMain } ){
     const [ShowSideBar,toggleSideBar]=useState(true);
-
+    const navigate = useNavigate();
     const Logout= ()=>{
         const name = localStorage.getItem('user');
         toast.success(name+" logged out succesfully");
@@ -33,7 +34,7 @@ function SideBar( { isMain, setMain } ){
                 <h1 className="opacity-40 ">Tracks</h1>
                 <h1 className="opacity-40 ">Albums</h1>
                 <h1 className="opacity-40 ">Playlists</h1>
-                <h1 className="opacity-40 ">Files</h1>
+                <h1 className="cursor-pointer" onClick={()=> navigate('/Documentation')} > Documentation</h1>
             </div>
 
             <div className="text-lg font-bold text-white mt-28 ml-3">

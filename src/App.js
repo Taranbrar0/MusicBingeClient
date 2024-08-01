@@ -6,13 +6,16 @@ import { useState } from "react";
 import UserProfile from "./Components/UserProfile.jsx";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Documentation from "./Components/Documentation";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
-
-  const handleLogin = () => {
-    setIsAuthenticated(true);
-  };
+  const [loading,setLoading] = useState(true);
+  if(loading === true){
+    setTimeout(()=>{
+      setLoading(false);
+    },2000);
+  }
 
   return (
     <div>
@@ -22,7 +25,7 @@ function App() {
         <Route path="/signUp" element={<Signin />} />
         <Route 
           path="/" 
-          element={isAuthenticated ? <Home /> : <Navigate to="/login" />} 
+          element={isAuthenticated ? <Home loading={loading} setLoading={setLoading} /> : <Navigate to="/login" />} 
         />
         <Route 
           path="/login" 
@@ -32,6 +35,7 @@ function App() {
           path="/userProfile" 
           element ={ isAuthenticated ? <UserProfile /> : <Navigate to="/"  />} 
         />
+        <Route path="/Documentation" element={<Documentation setLoading={setLoading}/>} />
       </Routes>
     </div>
   );

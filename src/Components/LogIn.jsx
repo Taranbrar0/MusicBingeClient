@@ -1,12 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link,Navigate,useNavigate } from "react-router-dom";
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function LogIn() {
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
+    const navigate= useNavigate();
 
     const validate = () => {
         axios.post("https://musicbingeserver.onrender.com/api/login", {
@@ -17,12 +18,13 @@ function LogIn() {
             const data = response.data;
             if (data.success) {
                 toast.success(`${data.user} logged in`);
-                
                 localStorage.setItem("token", data.token);
                 localStorage.setItem("user", data.user);
                 setTimeout(() => {
+                    navigate('/');
                     window.location.reload();
                 }, 3000);
+                
             } else {
                 setTimeout(() => {
                     toast.error(data.message);

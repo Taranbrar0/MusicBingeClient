@@ -40,13 +40,13 @@ const Normal = ({setLoading, setCurrentSongIndex}) =>(
 );
 
 
-function Main( {isMain, loading , setLoading} ){
+function Main( {isMain , setLoading} ){
     const {setCurrentSongIndex} = useSong();
     return (
         <div className=" w-3/4 relative" >
             <div className="text-white bg-zinc-800 p-5  border-l-2 border-zinc-800 rounded-3xl">
                 <SearchBar />
-                {isMain? <Normal loading={loading} setLoading={setLoading} setCurrentSongIndex={setCurrentSongIndex} /> : < MyMusicGallery />
+                {isMain? <Normal  setLoading={setLoading} setCurrentSongIndex={setCurrentSongIndex} /> : < MyMusicGallery />
                 }
             </div>
              <AudioControl />

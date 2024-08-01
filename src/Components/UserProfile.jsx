@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { FaUser } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -9,6 +9,7 @@ function UserProfile(){
     const [email,setEmail]= useState("");
     const [dob,setDob]= useState('');
     const [gender,setGender] = useState('');
+    const navigate = useNavigate();
 
     useEffect(()=>{
         const ApiPath = "https://musicbingeserver.onrender.com/api/user/"+localStorage.getItem('user');
@@ -31,6 +32,7 @@ function UserProfile(){
             toast.success(res.data);
         });
         setTimeout(()=>{
+            navigate('/');
             localStorage.clear();
             window.location.reload();
         },1500);
